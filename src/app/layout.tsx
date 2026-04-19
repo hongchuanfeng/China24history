@@ -70,7 +70,7 @@ export default function RootLayout({
         {/* Google AdSense */}
         <GoogleAdSense />
         {/* Google Analytics */}
-        <GoogleAnalytics measurementId="G-H1QG7P4Z7H" />
+        <GoogleAnalytics />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
