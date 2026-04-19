@@ -1,47 +1,26 @@
 "use client";
 
-import { useEffect } from "react";
+import Script from "next/script";
 
-interface GoogleAnalyticsProps {
-  measurementId: string;
-}
+const GA_MEASUREMENT_ID = "G-H1QG7P4Z7H";
 
-export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
-  useEffect(() => {
-    // 防止重复添加
-    if (typeof window === "undefined" || document.head.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${measurementId}"]`)) {
-      return;
-    }
-
-    // Google Analytics gtag.js
-    const script1 = document.createElement("script");
-    script1.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-    script1.async = true;
-    script1.setAttribute("data-cookieconsent", "statistics");
-    document.head.appendChild(script1);
-
-    const script2 = document.createElement("script");
-    script2.innerHTML = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${measurementId}', {
-        page_path: window.location.pathname,
-        send_page_view: true,
-        cookie_expires: 31536000
-      });
-    `;
-    document.head.appendChild(script2);
-
-    return () => {
-      if (document.head.contains(script1)) {
-        document.head.removeChild(script1);
-      }
-      if (document.head.contains(script2)) {
-        document.head.removeChild(script2);
-      }
-    };
-  }, [measurementId]);
-
-  return null;
+export default function GoogleAnalytics() {
+  return (
+    <>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_MEASUREMENT_ID}', {
+            send_page_view: true
+          });
+        `}
+      </Script>
+    </>
+  );
 }
