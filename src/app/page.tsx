@@ -71,6 +71,8 @@ export default function Home() {
                         {dynasty.startYear > 0 ? dynasty.startYear : Math.abs(dynasty.startYear) + " BCE"}
                         {" — "}
                         {dynasty.endYear > 0 ? dynasty.endYear : Math.abs(dynasty.endYear) + " BCE"}
+                        {" | "}
+                        国祚 {Math.abs(dynasty.endYear - dynasty.startYear)} 年
                       </span>
                     </div>
                   </div>

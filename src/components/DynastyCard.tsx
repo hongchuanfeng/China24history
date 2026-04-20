@@ -25,10 +25,15 @@ export default function DynastyCard({ dynasty }: DynastyCardProps) {
           <span className="seal text-xs px-2 py-1 rounded">{dynasty.name}</span>
         </h2>
 
-        {/* 时间范围 */}
-        <div className="text-sm text-gray-500 mb-3 font-medium">
-          {dynasty.startYear > 0 ? dynasty.startYear : Math.abs(dynasty.startYear) + " BCE"} —
-          {dynasty.endYear > 0 ? dynasty.endYear : Math.abs(dynasty.endYear) + " BCE"}
+        {/* 时间范围和国祚 */}
+        <div className="flex items-center gap-3 text-sm text-gray-500 mb-3">
+          <span className="font-medium">
+            {dynasty.startYear > 0 ? dynasty.startYear : Math.abs(dynasty.startYear) + " BCE"} —
+            {dynasty.endYear > 0 ? dynasty.endYear : Math.abs(dynasty.endYear) + " BCE"}
+          </span>
+          <span className="text-red-600 font-medium">
+            国祚 {Math.abs(dynasty.endYear - dynasty.startYear)} 年
+          </span>
         </div>
 
         {/* 描述 */}

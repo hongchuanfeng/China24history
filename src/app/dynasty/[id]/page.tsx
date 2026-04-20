@@ -164,6 +164,55 @@ export default async function DynastyPage({ params }: PageProps) {
                 </dl>
               </div>
 
+              {/* 全部皇帝列表 */}
+              {dynasty.allEmperors && dynasty.allEmperors.length > 0 && (
+                <div className="bg-white rounded-xl shadow-lg p-6 border border-red-100">
+                  <h3 className="text-xl font-bold text-red-800 mb-4 flex items-center gap-2">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    全部皇帝
+                  </h3>
+                  <div className="space-y-2">
+                    {dynasty.allEmperors.map((emperor, idx) => {
+                      // 解析在位时间计算年数
+                      const parseReignYears = (reignStr: string): number | null => {
+                        const reignClean = reignStr.replace(/[约]/g, "").trim();
+                        const parts = reignClean.split(/[–-]/);
+                        if (parts.length < 2) return null;
+                        
+                        const parseYear = (str: string): number => {
+                          const isBCE = str.includes("前") || str.includes("BCE") || str.includes("公元前");
+                          const numbers = str.match(/\d+/g);
+                          if (!numbers || numbers.length === 0) return NaN;
+                          const year = parseInt(numbers[0]);
+                          return isBCE ? -year : year;
+                        };
+                        
+                        const start = parseYear(parts[0]);
+                        const end = parseYear(parts[1]);
+                        if (isNaN(start) || isNaN(end)) return null;
+                        return Math.abs(end - start);
+                      };
+                      
+                      const reignYears = parseReignYears(emperor.reign);
+                      
+                      return (
+                        <div key={idx} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0 hover:bg-amber-50/50 px-2 rounded transition-colors">
+                          <span className="font-medium text-gray-800 text-sm">{emperor.name}</span>
+                          <div className="text-right">
+                            <span className="text-xs text-gray-500">{emperor.reign}</span>
+                            {reignYears !== null && (
+                              <span className="ml-2 text-xs text-red-600 font-medium">({reignYears}年)</span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
               {/* 著名皇帝 */}
               {dynasty.notableEmperors && dynasty.notableEmperors.length > 0 && (
                 <div className="bg-white rounded-xl shadow-lg p-6 border border-red-100">
