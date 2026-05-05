@@ -8,6 +8,7 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/", label: "首页" },
+    { href: "/resources", label: "24史资料" },
     { href: "/about", label: "关于我们" },
     { href: "/contact", label: "联系我们" },
     { href: "/privacy", label: "隐私政策" },

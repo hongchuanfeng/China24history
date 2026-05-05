@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/icon.svg",
+  },
   openGraph: {
     title: "中国24史 - 传道AI",
     description: "按时间轴方式浏览中国历史，了解各个朝代的兴衰更替。",
