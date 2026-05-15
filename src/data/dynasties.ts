@@ -1902,5 +1902,6 @@ export const friendLinks = [
   { name: "图片去水印", url: "https://www.chdaoai.com/" },
   { name: "传道AI工具", url: "https://www.openai2025.com/" },
   { name: "在线生成条码", url: "https://barcode.zorezoro.com/" },
+  { name: "中国菜系大全", url: "https://food.zorezoro.com/" },
   { name: "中国功夫网", url: "https://gf.zorezoro.com/" },
 ];
